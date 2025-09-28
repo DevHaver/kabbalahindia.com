@@ -1,0 +1,8 @@
+[project]
+name = "Kabbalah_India"
+version = "0.1.0"
+description = "Kabbalah India Academy Site"
+requires-python = ">=3.13"
+dependencies = [
+    "django>=5.2.6",
+]

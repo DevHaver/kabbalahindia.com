@@ -1,0 +1,16 @@
+version: "3"
+
+silent: true
+
+tasks:
+  setup:
+    desc: Setup the local development environment
+    summary: |
+      Setup the dev environment.
+
+      This command will automatically setup the development environment for you.
+      It will setup the pre-commit hooks and more such commands will be automated
+      using this command.
+    cmds:
+      - pre-commit install --install-hooks
+      - pre-commit install --hook-type commit-msg

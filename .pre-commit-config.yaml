@@ -1,0 +1,32 @@
+repos:
+  ###################################################################
+  # Generic pre-commit hooks
+  ###################################################################
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+        args:
+          - --maxkb=5000
+
+  - repo: https://github.com/Weburz/crisp
+    rev: v1.0.0
+    hooks:
+      - id: crisp
+        stages: [commit-msg]
+        name: lint commit messages
+
+  ###################################################################
+  # Hook to QA Python files in the backed "core" logic
+  ###################################################################
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.13.0
+    hooks:
+      - id: ruff
+        name: lint Python files
+        args: ["--fix"]
+      - id: ruff-format
+        name: format Python files
