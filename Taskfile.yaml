@@ -1,0 +1,19 @@
+version: "3"
+
+dotenv:
+  - .env
+
+tasks:
+  setup:
+    desc: Setup the local development environment
+    summary: |
+      Setup the local development environment by installing all dependencies
+      for both the frontend and backend, and initializing Git hooks.
+    sources:
+      - .pre-commit-config.yaml
+    generates:
+      - .git/hooks/pre-commit
+      - .git/hooks/commit-msg
+    cmds:
+      - pre-commit install --install-hooks
+      - pre-commit install --hook-type commit-msg

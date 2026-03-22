@@ -1,0 +1,82 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:study.kli.one)",
+      "WebFetch(domain:docs.github.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:coolify.io)",
+      "WebFetch(domain:www.vultr.com)",
+      "WebSearch",
+      "WebFetch(domain:docs.vultr.com)",
+      "WebFetch(domain:registry.terraform.io)",
+      "WebFetch(domain:discover.vultr.com)",
+      "WebFetch(domain:blogs.vultr.com)",
+      "WebFetch(domain:www.pulumi.com)"
+    ],
+    "deny": [
+      "Read(**/.env*)",
+      "Edit(**/.env*)",
+      "Write(**/.env*)",
+      "Glob(**/.env*)",
+      "Grep(**/.env*)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)",
+      "Edit(**/*.pem)",
+      "Edit(**/*.key)",
+      "Read(**/credentials.json)",
+      "Read(**/secrets/**)",
+      "Edit(**/secrets/**)",
+      "Write(**/secrets/**)",
+      "Bash(cat */.env*)",
+      "Bash(cat .env*)",
+      "Bash(grep * .env*)",
+      "Bash(printenv *)",
+      "Bash(head * .env*)",
+      "Bash(tail * .env*)",
+      "Bash(less .env*)",
+      "Bash(cp .env*)",
+      "Bash(python* -c *)",
+      "Bash(node -e *)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/block-env-read.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/block-env-read.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/block-env-read.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/block-env-bash.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
