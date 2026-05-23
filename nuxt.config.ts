@@ -81,11 +81,9 @@ export default defineNuxtConfig({
 
   nitro: {
     preset: "cloudflare-pages",
-    prerender: {
-      crawlLinks: false,
-      routes: ["/"],
-      ignore: ["/api/**"],
-    },
+    // Everything renders via the Worker so server/middleware/canonical.ts
+    // can intercept pages.dev requests and 301 them to the apex domain.
+    // Prerendering / would skip the Worker and break the redirect.
     routeRules: {
       "/**": {
         headers: {
