@@ -119,6 +119,9 @@ export default defineNuxtConfig({
     telegramChatId: "",
     public: {
       whatsappUrl: "https://chat.whatsapp.com/placeholder",
+      // Self-hosted Umami at https://umami.weburz.com. Set the site UUID via
+      // NUXT_PUBLIC_UMAMI_WEBSITE_ID — when empty, app.vue skips the script.
+      umamiWebsiteId: "",
     },
   },
 
