@@ -39,6 +39,9 @@ coverage
 # Task runner
 .task
 
+# Wrangler (local CF preview cache)
+.wrangler
+
 # VSCode
 .vscode/*
 !.vscode/settings.json

@@ -104,7 +104,7 @@ const onSubmit = async () => {
         <UForm
           v-else
           key="form"
-          :schema="v.safeParser(schema)"
+          :schema="schema"
           :state="state"
           class="bg-cream-300 flex flex-col gap-4 rounded-[14px] p-[18px] md:p-8"
           @submit="onSubmit"
