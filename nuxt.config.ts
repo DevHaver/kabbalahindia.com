@@ -75,12 +75,12 @@ export default defineNuxtConfig({
     },
   },
 
-  // Deployed as a Node SSR server. The homepage is prerendered for instant
-  // TTFB, and /api/* runs at request time.
+  // Deployed to Cloudflare Pages. The homepage is prerendered for instant
+  // TTFB and served from the global CDN, /api/* runs as a Worker.
   ssr: true,
 
   nitro: {
-    preset: "node-server",
+    preset: "cloudflare-pages",
     prerender: {
       crawlLinks: false,
       routes: ["/"],

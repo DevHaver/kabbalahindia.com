@@ -1,5 +1,4 @@
 import * as v from "valibot";
-import { consumeRateLimit } from "../utils/rateLimit";
 import { sendTelegramSignup } from "../utils/telegram";
 
 const signupSchema = v.object({
@@ -12,29 +11,11 @@ const signupSchema = v.object({
   website: v.optional(v.string(), ""),
 });
 
-const RATE_LIMIT_MAX = 5;
-const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000;
-
 const clientIp = (event: Parameters<typeof getRequestIP>[0]): string => {
   return getRequestIP(event, { xForwardedFor: true }) || "unknown";
 };
 
 export default defineEventHandler(async (event) => {
-  const ip = clientIp(event);
-
-  const limit = consumeRateLimit(
-    `signup:${ip}`,
-    RATE_LIMIT_MAX,
-    RATE_LIMIT_WINDOW_MS,
-  );
-  if (!limit.allowed) {
-    setResponseHeader(event, "Retry-After", limit.retryAfterSec);
-    throw createError({
-      statusCode: 429,
-      statusMessage: "Too many signup attempts. Try again later.",
-    });
-  }
-
   const body = await readBody(event).catch(() => null);
   if (!body || typeof body !== "object") {
     throw createError({ statusCode: 400, statusMessage: "Invalid payload" });
@@ -64,7 +45,7 @@ export default defineEventHandler(async (event) => {
     whatsapp: `+91${parsed.output.whatsapp}`,
     email: parsed.output.email.toLowerCase(),
     receivedAt: new Date().toISOString(),
-    ip,
+    ip: clientIp(event),
     userAgent: getRequestHeader(event, "user-agent") ?? null,
   };
 
