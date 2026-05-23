@@ -18,13 +18,13 @@ The Nitro `cloudflare-pages` preset produces a Workers-compatible bundle. Push t
 
 **Environment variables** (set in the Cloudflare Pages dashboard → Settings → Environment variables; never commit):
 
-| Variable                      | Required | Notes                                                               |
-| ----------------------------- | -------- | ------------------------------------------------------------------- |
-| `NUXT_PUBLIC_WHATSAPP_NUMBER` | yes      | Plain digits, country code first, no `+`. E.g. `919876543210`       |
-| `NUXT_TELEGRAM_BOT_TOKEN`     | no       | Bot token from `@BotFather` — for instant signup notifications      |
-| `NUXT_TELEGRAM_CHAT_ID`       | no       | Your chat id (from `bot<TOKEN>/getUpdates` after messaging the bot) |
-| `NUXT_SIGNUP_WEBHOOK_URL`     | no       | URL each accepted signup is POSTed to as JSON                       |
-| `NUXT_SIGNUP_WEBHOOK_TOKEN`   | no       | Sent as `Authorization: Bearer <token>` so your receiver can verify |
+| Variable                    | Required | Notes                                                                                                                                             |
+| --------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `NUXT_PUBLIC_WHATSAPP_URL`  | yes      | Group invite (`https://chat.whatsapp.com/...`) or DM link (`https://wa.me/<digits>`) — used by the floating CTA, footer, and signup-form fallback |
+| `NUXT_TELEGRAM_BOT_TOKEN`   | no       | Bot token from `@BotFather` — for instant signup notifications                                                                                    |
+| `NUXT_TELEGRAM_CHAT_ID`     | no       | Your chat id (from `bot<TOKEN>/getUpdates` after messaging the bot)                                                                               |
+| `NUXT_SIGNUP_WEBHOOK_URL`   | no       | URL each accepted signup is POSTed to as JSON                                                                                                     |
+| `NUXT_SIGNUP_WEBHOOK_TOKEN` | no       | Sent as `Authorization: Bearer <token>` so your receiver can verify                                                                               |
 
 If neither Telegram nor webhook is configured, signups are still captured — they're logged to the Worker's stdout, visible in the Cloudflare Pages dashboard's real-time logs. Add a receiver later without losing anything.
 

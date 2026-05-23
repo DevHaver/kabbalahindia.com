@@ -13,7 +13,7 @@ const schema = v.object({
 
 type SignupForm = v.InferOutput<typeof schema>;
 
-const waUrl = useWhatsApp("Hello Kabbalah Academy");
+const waUrl = useWhatsApp();
 
 const state = reactive<Partial<SignupForm> & { website: string }>({
   name: "",

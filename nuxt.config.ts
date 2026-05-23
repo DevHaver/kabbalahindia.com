@@ -120,7 +120,7 @@ export default defineNuxtConfig({
     telegramBotToken: "",
     telegramChatId: "",
     public: {
-      whatsappNumber: "919999999999",
+      whatsappUrl: "https://chat.whatsapp.com/placeholder",
     },
   },
 
