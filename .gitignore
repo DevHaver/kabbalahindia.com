@@ -1,0 +1,65 @@
+# Dependencies
+node_modules
+
+# Logs
+*.log*
+logs
+
+# Temp directories
+.temp
+.tmp
+.cache
+
+# pnpm
+.pnpm-store
+
+# Generated dirs
+dist
+
+# Nuxt
+.nuxt
+.output
+.data
+.nitro
+.vercel_build_output
+.build-*
+.netlify
+
+# Env
+.env
+.env.*
+!.env.example
+
+# Testing
+reports
+coverage
+*.lcov
+.nyc_output
+
+# Task runner
+.task
+
+# VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Intellij idea
+*.iml
+.idea
+
+# Fleet
+.fleet
+
+# OSX
+.DS_Store
+.AppleDouble
+.LSOverride
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk

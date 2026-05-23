@@ -1,0 +1,70 @@
+version: "3"
+
+dotenv:
+  - .env
+
+tasks:
+  default:
+    desc: Spin up the dev server
+    summary: |
+      Start the Nuxt dev server with hot-reloading.
+
+      The site will be accessible at http://localhost:3000.
+
+      NOTE: The dev version is not optimized for performance.
+    deps:
+      - task: setup
+    cmd: pnpm dev
+
+  setup:
+    desc: Setup the local development environment
+    summary: |
+      Install Node dependencies and initialize Git hooks via pre-commit.
+    sources:
+      - .pre-commit-config.yaml
+      - package.json
+    generates:
+      - .git/hooks/pre-commit
+      - .git/hooks/commit-msg
+      - pnpm-lock.yaml
+    cmds:
+      - pnpm install --frozen-lockfile
+      - pre-commit install --install-hooks
+      - pre-commit install --hook-type commit-msg
+
+  qa:
+    desc: Run QA checks on the source code
+    summary: |
+      Run ESLint and Prettier across the repo. Should be run before
+      committing and pushing changes.
+    cmds:
+      - pnpm lint
+      - pnpm format
+
+  test:
+    desc: Run the test suite
+    summary: |
+      Run vitest once across all tests/**/*.test.ts. Boots a real Nuxt
+      server for the /api/signup integration tests.
+    cmd: pnpm test
+
+  build:
+    desc: Build the production bundle
+    cmd: pnpm build
+
+  preview:
+    desc: Preview the production build locally
+    deps:
+      - task: build
+    cmd: pnpm preview
+
+  clean:
+    desc: Remove all generated and installed files
+    summary: |
+      Wipe the local environment to start fresh.
+    cmds:
+      - rm -rf .nuxt
+      - rm -rf .output
+      - rm -rf .data
+      - rm -rf node_modules
+      - rm -rf .task

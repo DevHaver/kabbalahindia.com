@@ -1,0 +1,29 @@
+.git
+.github
+.gitignore
+.husky
+.nuxt
+.output
+.data
+.nitro
+.cache
+node_modules
+dist
+coverage
+logs
+*.log
+
+# editor / OS
+.DS_Store
+.vscode
+.idea
+.fleet
+
+# secrets / local env
+.env
+.env.*
+!.env.example
+
+# repo docs that don't belong in the image
+README.md
+Designs

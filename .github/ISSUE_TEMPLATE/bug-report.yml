@@ -1,0 +1,76 @@
+name: Bug Report
+description: File a bug report
+title: "[BUG]: "
+labels: ["bug"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description:
+        Describe the bug clearly. What did you see, and what did you expect to
+        see instead?
+      placeholder:
+        When I open the Final-CTA section on mobile Safari, the form input
+        labels overlap with the placeholder text.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: List the exact steps someone else can follow to see the same
+        bug.
+      placeholder: |
+        1. Open https://kabbalahindia.com on <device/browser>
+        2. Scroll to <section>
+        3. Tap <element>
+        4. Observe ...
+    validations:
+      required: true
+
+  - type: input
+    id: page-or-section
+    attributes:
+      label: Page or section
+      description: Which part of the site is affected?
+      placeholder: e.g. Hero, FAQ, Final CTA, Footer
+    validations:
+      required: false
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Where you saw the bug.
+      value: |
+        - Device:
+        - OS + version:
+        - Browser + version:
+        - Viewport (mobile / tablet / desktop):
+        - Network (wifi / mobile data):
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Browser console errors, network failures, anything related.
+        No need for backticks — this auto-formats as a shell block.
+      render: Shell
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots / video
+      description: For visual or interaction bugs, a screenshot or short screen
+        recording is worth far more than a description. Drag and drop into the
+        box.
