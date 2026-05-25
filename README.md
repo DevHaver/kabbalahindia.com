@@ -1,6 +1,22 @@
-# Kabbalah Academy India — landing page
+<div align="center">
 
-Bilingual (English + Hindi) landing page for the free Introductory Kabbalah Course at [kabbalahindia.com](https://kabbalahindia.com).
+<img src="./assets/landing.png" alt="Kabbalah Academy India" width="100%" />
+
+# Kabbalah Academy India
+
+**असली कबाला, अब भारत में।** &nbsp;·&nbsp; Real Kabbalah, taught in English and Hindi.
+
+The official landing page for the free Introductory Kabbalah Course at [kabbalahindia.com](https://kabbalahindia.com).
+
+[![Nuxt 4](https://img.shields.io/badge/Nuxt-4-00DC82?logo=nuxt&logoColor=white)](https://nuxt.com)
+[![Vue 3](https://img.shields.io/badge/Vue-3-4FC08D?logo=vue.js&logoColor=white)](https://vuejs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Cloudflare Pages](https://img.shields.io/badge/Cloudflare-Pages-F38020?logo=cloudflare&logoColor=white)](https://pages.cloudflare.com)
+[![pnpm 11](https://img.shields.io/badge/pnpm-11-F69220?logo=pnpm&logoColor=white)](https://pnpm.io)
+
+</div>
+
+---
 
 ## Tech stack
 
@@ -12,7 +28,7 @@ Bilingual (English + Hindi) landing page for the free Introductory Kabbalah Cour
 - **[Cloudflare Pages](https://pages.cloudflare.com/)** — hosting, via Nitro's `cloudflare-pages` preset
 - **[pnpm 11](https://pnpm.io/)** — package manager
 
-## Local development
+## Getting started
 
 Requires Node 22+ and pnpm 11+.
 
@@ -53,7 +69,7 @@ server/
   middleware/     # request middleware
   utils/          # server-side helpers
 tests/server/     # vitest unit tests
-Designs/          # Penpot design source (design.pen)
+Designs/          # design source (design.pen, generated with pencil.dev)
 ```
 
 ## Environment variables
@@ -71,6 +87,10 @@ Names are prefixed `NUXT_` so they bind to `runtimeConfig` automatically. See `.
 
 Never commit a `.env` file. `.env*` is gitignored except for `.env.example`.
 
+## Design
+
+The source design lives in `Designs/design.pen` — generated with [Pencil](https://pencil.dev/). Keep visual changes in sync with the design file; ping a maintainer if you need access to push updates back.
+
 ## Deploy
 
 Production deploys to Cloudflare Pages. Push to `main`, Cloudflare picks it up from the connected GitHub repo and builds with the Nitro `cloudflare-pages` preset. Environment variables are configured in the Cloudflare Pages dashboard under **Settings → Environment variables**.
@@ -85,8 +105,16 @@ PRs are welcome. A few notes to make review smoother:
 2. **One concern per PR.** Mixing a refactor with a feature makes things hard to review.
 3. **Run `pnpm lint` and `pnpm test` locally.** CI will run them too, but it's slower.
 4. **Conventional commit messages** (`feat:`, `fix:`, `chore:`, `docs:`, …).
-5. **Keep design changes consistent with the Penpot file** in `Designs/`.
+5. **Keep visual changes consistent with the design file** in `Designs/`.
 
 ## Reporting a security issue
 
 Please do **not** open a public issue for security reports. Email the maintainers privately and we will respond as soon as possible. Coordinated disclosure is appreciated.
+
+---
+
+<div align="center">
+
+Built with care by the Kabbalah Academy India team.
+
+</div>
