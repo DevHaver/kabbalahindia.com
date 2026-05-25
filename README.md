@@ -4,9 +4,7 @@
 
 # Kabbalah Academy India
 
-**असली कबाला, अब भारत में।** &nbsp;·&nbsp; Real Kabbalah, taught in English and Hindi.
-
-The official landing page for the free Introductory Kabbalah Course at [kabbalahindia.com](https://kabbalahindia.com).
+The official landing page for KAI at [kabbalahindia.com](https://kabbalahindia.com).
 
 [![Nuxt 4](https://img.shields.io/badge/Nuxt-4-00DC82?logo=nuxt&logoColor=white)](https://nuxt.com)
 [![Vue 3](https://img.shields.io/badge/Vue-3-4FC08D?logo=vue.js&logoColor=white)](https://vuejs.org)
@@ -44,14 +42,14 @@ Open <http://localhost:3000>.
 
 ## Scripts
 
-| Script         | What it does                                  |
-| -------------- | --------------------------------------------- |
-| `pnpm dev`     | Start the Nuxt dev server on `0.0.0.0:3000`   |
-| `pnpm build`   | Production build (`cloudflare-pages` preset)  |
-| `pnpm preview` | Preview the production build locally          |
-| `pnpm test`    | Run the vitest suite                          |
-| `pnpm lint`    | `nuxt typecheck` + ESLint                     |
-| `pnpm format`  | Prettier write across the repo                |
+| Script         | What it does                                 |
+| -------------- | -------------------------------------------- |
+| `pnpm dev`     | Start the Nuxt dev server on `0.0.0.0:3000`  |
+| `pnpm build`   | Production build (`cloudflare-pages` preset) |
+| `pnpm preview` | Preview the production build locally         |
+| `pnpm test`    | Run the vitest suite                         |
+| `pnpm lint`    | `nuxt typecheck` + ESLint                    |
+| `pnpm format`  | Prettier write across the repo               |
 
 Please run `pnpm lint` and `pnpm test` before opening a PR.
 
@@ -76,14 +74,14 @@ Designs/          # design source (design.pen, generated with pencil.dev)
 
 Names are prefixed `NUXT_` so they bind to `runtimeConfig` automatically. See `.env.example` for the full list with inline comments.
 
-| Variable                       | Required | Purpose                                                 |
-| ------------------------------ | -------- | ------------------------------------------------------- |
-| `NUXT_PUBLIC_WHATSAPP_URL`     | yes      | WhatsApp group invite or `wa.me/...` link               |
-| `NUXT_PUBLIC_UMAMI_WEBSITE_ID` | no       | Umami site UUID; analytics is disabled when unset       |
-| `NUXT_TELEGRAM_BOT_TOKEN`      | no       | Telegram bot token for signup notifications             |
-| `NUXT_TELEGRAM_CHAT_ID`        | no       | Telegram chat ID to deliver notifications to            |
-| `NUXT_SIGNUP_WEBHOOK_URL`      | no       | Optional outbound webhook for signups                   |
-| `NUXT_SIGNUP_WEBHOOK_TOKEN`    | no       | Bearer token sent with the webhook request              |
+| Variable                       | Required | Purpose                                           |
+| ------------------------------ | -------- | ------------------------------------------------- |
+| `NUXT_PUBLIC_WHATSAPP_URL`     | yes      | WhatsApp group invite or `wa.me/...` link         |
+| `NUXT_PUBLIC_UMAMI_WEBSITE_ID` | no       | Umami site UUID; analytics is disabled when unset |
+| `NUXT_TELEGRAM_BOT_TOKEN`      | no       | Telegram bot token for signup notifications       |
+| `NUXT_TELEGRAM_CHAT_ID`        | no       | Telegram chat ID to deliver notifications to      |
+| `NUXT_SIGNUP_WEBHOOK_URL`      | no       | Optional outbound webhook for signups             |
+| `NUXT_SIGNUP_WEBHOOK_TOKEN`    | no       | Bearer token sent with the webhook request        |
 
 Never commit a `.env` file. `.env*` is gitignored except for `.env.example`.
 
@@ -115,6 +113,6 @@ Please do **not** open a public issue for security reports. Email the maintainer
 
 <div align="center">
 
-Built with care by the Kabbalah Academy India team.
+Built by [DevHaver](https://github.com/DevHaver).
 
 </div>
