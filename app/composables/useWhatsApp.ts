@@ -1,12 +1,14 @@
 /**
- * Returns the WhatsApp deep link based on the public runtime config.
- * Set `NUXT_PUBLIC_WHATSAPP_NUMBER=919876543210` (no `+`) in your env.
+ * Returns the WhatsApp destination URL from public runtime config.
+ *
+ * Set `NUXT_PUBLIC_WHATSAPP_URL` to either:
+ *   - a group invite — `https://chat.whatsapp.com/XXXXX`
+ *   - a 1:1 deep link — `https://wa.me/919876543210`
+ *
+ * The composable just returns the value verbatim; consumers don't need to
+ * know which shape it is.
  */
-export const useWhatsApp = (message?: string) => {
+export const useWhatsApp = () => {
   const { public: pub } = useRuntimeConfig();
-  const number = pub.whatsappNumber;
-  return computed(() => {
-    const url = `https://wa.me/${number}`;
-    return message ? `${url}?text=${encodeURIComponent(message)}` : url;
-  });
+  return computed(() => pub.whatsappUrl);
 };

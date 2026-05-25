@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.7
 
 # ---- build stage -----------------------------------------------------------
-FROM node:24-alpine AS build
+FROM node:26-alpine AS build
 
 ENV PNPM_HOME=/pnpm \
     PATH=/pnpm:$PATH \
@@ -22,7 +22,7 @@ COPY . .
 RUN pnpm build
 
 # ---- runtime stage ---------------------------------------------------------
-FROM node:24-alpine AS runtime
+FROM node:26-alpine AS runtime
 
 ENV NODE_ENV=production \
     NITRO_PORT=3000 \

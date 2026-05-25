@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const waUrl = useWhatsApp("Hello Kabbalah Academy");
+const waUrl = useWhatsApp();
 
 const showDesktopCta = ref(false);
 const scrollHandler = () => {

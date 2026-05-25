@@ -75,17 +75,15 @@ export default defineNuxtConfig({
     },
   },
 
-  // Deployed as a Node SSR server. The homepage is prerendered for instant
-  // TTFB, and /api/* runs at request time.
+  // Deployed to Cloudflare Pages. The homepage is prerendered for instant
+  // TTFB and served from the global CDN, /api/* runs as a Worker.
   ssr: true,
 
   nitro: {
-    preset: "node-server",
-    prerender: {
-      crawlLinks: false,
-      routes: ["/"],
-      ignore: ["/api/**"],
-    },
+    preset: "cloudflare-pages",
+    // Everything renders via the Worker so server/middleware/canonical.ts
+    // can intercept pages.dev requests and 301 them to the apex domain.
+    // Prerendering / would skip the Worker and break the redirect.
     routeRules: {
       "/**": {
         headers: {
@@ -120,7 +118,10 @@ export default defineNuxtConfig({
     telegramBotToken: "",
     telegramChatId: "",
     public: {
-      whatsappNumber: "919999999999",
+      whatsappUrl: "https://chat.whatsapp.com/placeholder",
+      // Self-hosted Umami at https://umami.weburz.com. Set the site UUID via
+      // NUXT_PUBLIC_UMAMI_WEBSITE_ID — when empty, app.vue skips the script.
+      umamiWebsiteId: "",
     },
   },
 

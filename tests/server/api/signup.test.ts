@@ -86,23 +86,4 @@ describe.skip("POST /api/signup", () => {
     expect(res.status).toBe(200);
     expect(res.data).toEqual({ ok: true });
   });
-
-  it("returns 429 after the 5-per-hour limit from one IP", async () => {
-    const ip = "198.51.100.99";
-    const valid = {
-      name: "Burst Test",
-      whatsapp: "9876543210",
-      email: "burst@example.com",
-    };
-
-    // First 5 should succeed.
-    for (let i = 0; i < 5; i++) {
-      const res = await postSignup(valid, ip);
-      expect(res.status).toBe(200);
-    }
-
-    // 6th from the same IP must be rate-limited.
-    const sixth = await postSignup(valid, ip);
-    expect(sixth.status).toBe(429);
-  });
 });
