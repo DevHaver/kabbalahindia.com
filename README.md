@@ -1,66 +1,92 @@
 # Kabbalah Academy India — landing page
 
-Bilingual (English + Hindi) landing page for the free Introductory Kabbalah Course. Built with Nuxt 4 + Nuxt UI v3, deployed on Cloudflare Pages.
+Bilingual (English + Hindi) landing page for the free Introductory Kabbalah Course at [kabbalahindia.com](https://kabbalahindia.com).
 
-## Local dev
+## Tech stack
+
+- **[Nuxt 4](https://nuxt.com/)** with Vue 3 — SSR + prerendered routes
+- **[Nuxt UI v3](https://ui.nuxt.com/)** — components and Tailwind layer
+- **[@nuxt/fonts](https://fonts.nuxt.com/)**, **[@nuxt/image](https://image.nuxt.com/)**, **[@vueuse/nuxt](https://vueuse.org/nuxt/README.html)**
+- **[valibot](https://valibot.dev/)** — schema validation, client + server
+- **[vitest](https://vitest.dev/)** with `happy-dom` — unit tests
+- **[Cloudflare Pages](https://pages.cloudflare.com/)** — hosting, via Nitro's `cloudflare-pages` preset
+- **[pnpm 11](https://pnpm.io/)** — package manager
+
+## Local development
+
+Requires Node 22+ and pnpm 11+.
 
 ```bash
+git clone git@github.com:DevHaver/kabbalahindia.com.git
+cd kabbalahindia.com
 pnpm install
-cp .env.example .env   # then fill in NUXT_PUBLIC_WHATSAPP_NUMBER at minimum
+cp .env.example .env   # fill in NUXT_PUBLIC_WHATSAPP_URL at minimum
 pnpm dev
 ```
 
 Open <http://localhost:3000>.
 
-## Deploy
+## Scripts
 
-The Nitro `cloudflare-pages` preset produces a Workers-compatible bundle. Push to GitHub, connect the repo in the Cloudflare Pages dashboard, set the build command to `pnpm build`, and the output directory to `dist`. Cloudflare auto-provisions HTTPS for your custom domain.
+| Script         | What it does                                  |
+| -------------- | --------------------------------------------- |
+| `pnpm dev`     | Start the Nuxt dev server on `0.0.0.0:3000`   |
+| `pnpm build`   | Production build (`cloudflare-pages` preset)  |
+| `pnpm preview` | Preview the production build locally          |
+| `pnpm test`    | Run the vitest suite                          |
+| `pnpm lint`    | `nuxt typecheck` + ESLint                     |
+| `pnpm format`  | Prettier write across the repo                |
 
-**Environment variables** (set in the Cloudflare Pages dashboard → Settings → Environment variables; never commit):
-
-| Variable                    | Required | Notes                                                                                                                                             |
-| --------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `NUXT_PUBLIC_WHATSAPP_URL`  | yes      | Group invite (`https://chat.whatsapp.com/...`) or DM link (`https://wa.me/<digits>`) — used by the floating CTA, footer, and signup-form fallback |
-| `NUXT_TELEGRAM_BOT_TOKEN`   | no       | Bot token from `@BotFather` — for instant signup notifications                                                                                    |
-| `NUXT_TELEGRAM_CHAT_ID`     | no       | Your chat id (from `bot<TOKEN>/getUpdates` after messaging the bot)                                                                               |
-| `NUXT_SIGNUP_WEBHOOK_URL`   | no       | URL each accepted signup is POSTed to as JSON                                                                                                     |
-| `NUXT_SIGNUP_WEBHOOK_TOKEN` | no       | Sent as `Authorization: Bearer <token>` so your receiver can verify                                                                               |
-
-If neither Telegram nor webhook is configured, signups are still captured — they're logged to the Worker's stdout, visible in the Cloudflare Pages dashboard's real-time logs. Add a receiver later without losing anything.
-
-The `Dockerfile` in the repo is dormant on Cloudflare Pages — it stays for local container testing and as an escape hatch if you ever move to a Node host.
-
-## How signups are handled
-
-The form posts to `POST /api/signup` (`server/api/signup.post.ts`). It:
-
-- Re-validates the payload with the same valibot schema the client uses
-- Drops bot submissions via a hidden honeypot field (`website`)
-- Logs the accepted submission to stdout
-- Pings your Telegram chat with a formatted card (if `NUXT_TELEGRAM_BOT_TOKEN` + `NUXT_TELEGRAM_CHAT_ID` are set) — tap the WhatsApp link to reply directly
-- Forwards it to the generic webhook (if `NUXT_SIGNUP_WEBHOOK_URL` is set) — fires alongside Telegram
-- Both deliveries run in parallel with 5s timeouts; failures are logged but not surfaced to the user
-
-Rate limiting is delegated to Cloudflare — configure it in the Cloudflare dashboard under **Security → WAF → Rate limiting rules**. A sensible default is "10 requests per minute per IP to `/api/signup`".
-
-## Security defaults
-
-- `Strict-Transport-Security`, `X-Content-Type-Options`, `X-Frame-Options: DENY`, `Referrer-Policy`, `Permissions-Policy` set via Nitro `routeRules`
-- `/api/**` is `Cache-Control: no-store`
-- `.env*` is gitignored (except `.env.example`)
+Please run `pnpm lint` and `pnpm test` before opening a PR.
 
 ## Project structure
 
 ```
 app/
-  components/     # 23 components — primitives + 15 section components
-  pages/          # single landing page at /
-  assets/css/     # gemstone palette + font tokens
-  composables/    # useWhatsApp
+  assets/css/     # design tokens (gemstone palette, typography)
+  components/     # primitives + section components
+  composables/    # shared composables
+  pages/          # landing page
+  plugins/        # client-only plugins (analytics, etc.)
 server/
-  api/            # signup.post.ts
-  utils/          # telegram.ts
-tests/
-  server/         # vitest unit tests
-Designs/          # source design file (design.pen — Penpot JSON)
+  api/            # API route handlers
+  middleware/     # request middleware
+  utils/          # server-side helpers
+tests/server/     # vitest unit tests
+Designs/          # Penpot design source (design.pen)
 ```
+
+## Environment variables
+
+Names are prefixed `NUXT_` so they bind to `runtimeConfig` automatically. See `.env.example` for the full list with inline comments.
+
+| Variable                       | Required | Purpose                                                 |
+| ------------------------------ | -------- | ------------------------------------------------------- |
+| `NUXT_PUBLIC_WHATSAPP_URL`     | yes      | WhatsApp group invite or `wa.me/...` link               |
+| `NUXT_PUBLIC_UMAMI_WEBSITE_ID` | no       | Umami site UUID; analytics is disabled when unset       |
+| `NUXT_TELEGRAM_BOT_TOKEN`      | no       | Telegram bot token for signup notifications             |
+| `NUXT_TELEGRAM_CHAT_ID`        | no       | Telegram chat ID to deliver notifications to            |
+| `NUXT_SIGNUP_WEBHOOK_URL`      | no       | Optional outbound webhook for signups                   |
+| `NUXT_SIGNUP_WEBHOOK_TOKEN`    | no       | Bearer token sent with the webhook request              |
+
+Never commit a `.env` file. `.env*` is gitignored except for `.env.example`.
+
+## Deploy
+
+Production deploys to Cloudflare Pages. Push to `main`, Cloudflare picks it up from the connected GitHub repo and builds with the Nitro `cloudflare-pages` preset. Environment variables are configured in the Cloudflare Pages dashboard under **Settings → Environment variables**.
+
+The `Dockerfile` at the repo root is unused in production and kept only for local container experiments.
+
+## Contributing
+
+PRs are welcome. A few notes to make review smoother:
+
+1. **Open an issue first** for anything larger than a small fix — it's faster than a back-and-forth on a PR.
+2. **One concern per PR.** Mixing a refactor with a feature makes things hard to review.
+3. **Run `pnpm lint` and `pnpm test` locally.** CI will run them too, but it's slower.
+4. **Conventional commit messages** (`feat:`, `fix:`, `chore:`, `docs:`, …).
+5. **Keep design changes consistent with the Penpot file** in `Designs/`.
+
+## Reporting a security issue
+
+Please do **not** open a public issue for security reports. Email the maintainers privately and we will respond as soon as possible. Coordinated disclosure is appreciated.
